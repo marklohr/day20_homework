@@ -1,0 +1,80 @@
+<h1>Physician Information</h1>
+
+<strong>Name:</strong>
+<%= @doctor.first_name %>
+<%= @doctor.last_name %>
+<br><br>
+<strong>Gender:</strong>
+<%= @doctor.gender_name %>
+<br><br>
+<strong>Specialty:</strong>
+<%= @doctor.specialty %>
+<br><br>
+<strong>Biography:</strong>
+<%= @doctor.biography %>
+
+
+<br><br>
+
+<%= link_to "Edit This Doctor", edit_doctor_path(@doctor) %>
+|
+<%= link_to "Remove This Doctor", doctor_path(@doctor), method: :delete, data: { confirm: 'Are you sure you want to delete?' } %>
+<br><br>
+<%= link_to "Return to List of Doctors", doctors_path %>
+<br><br>
+<%= link_to "Return to Home", root_path %>
+<br>
+<br>
+<p>
+<h3><u>Physician's List of Patients:</u></h3>
+  <%= link_to "Add Patient", new_doctor_patient_path(@doctor) %>
+  <br><br>
+  <% @patients.each do |patient| %>
+    <li>
+      <strong>Name:</strong>
+      <%= link_to patient.last_name + ", " + patient.first_name, doctor_patient_path(@doctor, patient) %>
+      <br>
+      <strong>Date of Birth:</strong>
+      <%= patient.date_of_birth %>
+      <br>
+      <strong>Description:</strong>
+      <%= patient.description %>
+      <br>
+      <strong>Gender:</strong>
+      <%= patient.gender %>
+      <br>
+      <strong>Blood Type:</strong>
+      <%= patient.blood_type %>
+      <br>
+    </li>
+
+      <%= link_to "Edit Patient Information", edit_doctor_patient_path(@doctor, patient) %>
+      |
+      <%= link_to "Delete Patient Information", doctor_patient_path(@doctor, patient), method: :delete %>
+      <br><br>
+
+  <% end %>
+    <br>
+</p>
+
+<h3><u>Physicians's List of Nurses:</u></h3>
+<ul>
+  <% @nurses.each do |nurse| %>
+    <li>
+ <%= nurse.name %>
+  |
+      <%= link_to "Delete", destroy_nurse_doctor_path(nurse), method: :delete %>
+      <br><br>
+    </li>
+  <% end %>
+</ul><br>
+<%= form_for @nurse, url: create_nurse_doctor_path(@doctor) do |f| %>
+
+<strong><%= f.label :name %></strong>
+  <%= f.text_field :name %>
+  <br><br>
+
+  <%= f.submit %>
+  <br><br>
+<% end %>
+

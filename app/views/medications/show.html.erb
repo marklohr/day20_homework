@@ -1,0 +1,16 @@
+<h1>Medication Info </h1>
+
+
+<strong>Medication Name:</strong>
+<%= @medication.name %>
+<br>
+<strong>Side Effects:</strong>
+<%= @medication.side_effects %>
+<br>
+<%= link_to "Edit Medication", edit_doctor_patient_medication_path(@doctor, @patient, @medication) %>
+|
+<%= link_to "Delete Medication", doctor_patient_medication_path(@doctor, @patient, @medication), method: :delete %>
+<br>
+<%= link_to "Return to Patient", doctor_patient_path(@doctor, @patient) %>
+|
+<%= link_to "Return to Main", root_path %>

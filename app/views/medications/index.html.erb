@@ -1,0 +1,22 @@
+<h1>Prescribed Medications</h1>
+
+<%= link_to "Create a New Medication", new_medication_path %>
+<br>
+<ul>
+  <% @medications.each do |medication| %>
+    <li>
+      <strong>Medication Name:</strong>
+      <%= link_to medication.name, medication_path(medication) %>
+      <br>
+      <strong>Side Effects:</strong>
+      <%= medication.side_effects %>
+      <br>
+      
+   <%= link_to "Edit Medication", edit_medication_path(medication) %>
+   |
+   <%= link_to "Delete Medication", medication_path(medication), method: :delete %>
+   </li>
+   <br>
+    <% end %>
+</ul>
+<%= link_to "Return to Main", root_path %>
