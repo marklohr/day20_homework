@@ -1,4 +1,11 @@
 class PatientsController < ApplicationController
+  before_action :set_patient, only: [
+    :show,
+    :edit,
+    :update,
+    :destroy,
+    :wait_patient
+  ]
 
   def index
     @patients = Patient.all
@@ -63,6 +70,48 @@ def create_nurse
     @nurse.destroy
     redirect_to root_path
   end
+
+def wait_patient
+  @doctor = Doctor.find params[:doctor_id]
+  @patient = @doctor.patients.find params[:id]
+  @patient.wait!
+  redirect_to doctor_patient_path
+end
+
+def checkup_patient
+  @doctor = Doctor.find params[:doctor_id]
+  @patient = @doctor.patients.find params[:id]
+  @patient.checkup!
+  redirect_to doctor_patient_path
+end
+
+def xray_patient
+  @doctor = Doctor.find params[:doctor_id]
+  @patient = @doctor.patients.find params[:id]
+  @patient.xray!
+  redirect_to doctor_patient_path
+end
+
+def operate_patient
+  @doctor = Doctor.find params[:doctor_id]
+  @patient = @doctor.patients.find params[:id]
+  @patient.operate!
+  redirect_to doctor_patient_path
+end
+
+def pay_patient
+  @doctor = Doctor.find params[:doctor_id]
+  @patient = @doctor.patients.find params[:id]
+  @patient.pay!
+  redirect_to doctor_patient_path
+end
+
+def leave_patient
+  @doctor = Doctor.find params[:doctor_id]
+  @patient = @doctor.patients.find params[:id]
+  @patient.leave!
+  redirect_to doctor_patient_path
+end
 
 private
   def patient_params

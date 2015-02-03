@@ -26,7 +26,7 @@
 <br>
 <br>
 <p>
-<h3><u>Physician's List of Patients:</u></h3>
+<h3><u>Physician's Current Patients:</u></h3>
   <%= link_to "Add Patient", new_doctor_patient_path(@doctor) %>
   <br><br>
   <% @patients.each do |patient| %>
@@ -46,14 +46,16 @@
       <strong>Blood Type:</strong>
       <%= patient.blood_type %>
       <br>
+
     </li>
+    
 
       <%= link_to "Edit Patient Information", edit_doctor_patient_path(@doctor, patient) %>
       |
       <%= link_to "Delete Patient Information", doctor_patient_path(@doctor, patient), method: :delete %>
       <br><br>
 
-  <% end %>
+    <% end %>
     <br>
 </p>
 

@@ -15,6 +15,41 @@
     <strong>Blood Type:</strong>
     <%= @patient.blood_type %>
     <br><br>
+    <strong>Patient Location:</strong>
+    <%= @patient.current_state %>
+
+
+      <% if @patient.waiting_room? %>
+        <%= link_to "Begin Intake", wait_patient_doctor_patient_path(@doctor, @patient), method: :patch %>
+        <%= link_to "Checkup", checkup_patient_doctor_patient_path(@doctor, @patient), method: :patch %>
+        <%= link_to "Recieve X-Ray", xray_patient_doctor_patient_path(@doctor, @patient), method: :patch %>
+        <%= link_to "Start Surgery", operate_patient_doctor_patient_path(@doctor, @patient), method: :patch %>
+        <%= link_to "Bill Patient", pay_patient_doctor_patient_path(@doctor, @patient), method: :patch %>
+      <% end %>
+      <% if @patient.checkup_room? %>
+        <%= link_to "Recieve X-Ray", xray_patient_doctor_patient_path(@doctor, @patient), method: :patch %>
+        <%= link_to "Bill Patient", pay_patient_doctor_patient_path(@doctor, @patient), method: :patch %>
+        <%= link_to "Discharge Patient", leave_patient_doctor_patient_path(@doctor, @patient), method: :patch %>
+      <% end %>
+      <% if @patient.xray_room? %>
+        <%= link_to "Bill Patient", pay_patient_doctor_patient_path(@doctor, @patient), method: :patch %>
+        <%= link_to "Discharge Patient", leave_patient_doctor_patient_path(@doctor, @patient), method: :patch %>
+      <% end %>
+      <% if @patient.surgery_room? %>
+        <%= link_to "Bill Patient", pay_patient_doctor_patient_path(@doctor, @patient), method: :patch %>
+        <%= link_to "Discharge Patient", leave_patient_doctor_patient_path(@doctor, @patient), method: :patch %>
+      <% end %>
+      <% if @patient.paybill_room? %>
+        <%= link_to "Discharge Patient", leave_patient_doctor_patient_path(@doctor, @patient), method: :patch %>
+      <% end %>
+      <% if @patient.left? %>
+        <%= link_to "Begin Intake", wait_patient_doctor_patient_path(@doctor, @patient), method: :patch %>
+      <% end %>
+      <br/>
+
+
+
+
 
 <%= link_to "Edit Patient", edit_doctor_patient_path(@doctor, @patient) %>
 |
@@ -26,21 +61,21 @@
 <br>
 <br>
 <h3><u>Patient's Medications:</u></h3>
-<%= link_to "Add Medication", new_doctor_patient_medication_path(@doctor, @patient) %>
+<%= link_to "Add Medication", new_medication_path %>
 <br>
 <ul>
   <% @patient.medications.each do |medication| %>
     <li>
       <strong>Medication Name:</strong>
-      <%= link_to medication.name, doctor_patient_medication_path(@doctor, @patient, medication) %>
+      <%= medication.name %>
       <br>
       <strong>Side Effects:</strong>
       <%= medication.side_effects %>
       <br>
       
-     <%= link_to "Edit Medication", edit_doctor_patient_medication_path(@doctor, @patient, medication) %>
+     <%= link_to "Edit Medication", edit_medication_path(medication) %>
      |
-    <%= link_to "Delete Medication", doctor_patient_medication_path(@doctor, @patient, medication), method: :delete %>
+    <%= link_to "Delete Medication", medication_path(medication), method: :delete %>
     <br>
     <br>
     </li>
