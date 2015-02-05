@@ -1,0 +1,71 @@
+%h1
+  %u Physician Information
+%br
+%strong Name:
+= @doctor.first_name
+= @doctor.last_name
+%br
+%strong Gender:
+= @doctor.gender_name
+%br
+%strong Specialty:
+= @doctor.specialty
+%br
+%br
+%strong Biography:
+= @doctor.biography
+%br
+%br
+= link_to "Edit This Doctor", edit_doctor_path(@doctor)
+|
+=link_to "Remove This Doctor", doctor_path(@doctor), method: :delete, data: { confirm: 'Are you sure you want to delete?'}
+%br
+= link_to "Return to List of Doctors", doctors_path
+%br
+= link_to "Return to Home", root_path
+%br
+%h3
+  %u Physician's Current Patients:
+= link_to "Add Patient", new_doctor_patient_path(@doctor)
+%br
+%br
+- @patients.each do |patient|
+  %li
+    %strong Name:
+    = link_to patient.last_name + ", " + patient.first_name, doctor_patient_path(@doctor, patient)
+    %br
+    %strong Date of Birth:
+    = patient.date_of_birth
+    %br
+    %strong Description:
+    = patient.description
+    %br
+    %strong Gender:
+    = patient.gender
+    %br
+    %strong Blood Type:
+    = patient.blood_type
+    %br
+    = link_to "Edit Patient Information", edit_doctor_patient_path(@doctor, patient)
+    |
+    = link_to "Delete Patient Information", doctor_patient_path(@doctor, patient), method: :delete
+    %br
+    %br
+%h3
+  %u Physicians's List of Nurses:
+- @nurses.each do |nurse|
+  %li
+    = nurse.name
+    |
+    = link_to "Delete", destroy_nurse_doctor_path(nurse), method: :delete
+    %br
+    %br
+= form_for @nurse, url: create_nurse_doctor_path(@doctor) do |f|
+  %strong= f.label :Add_Nurse
+  = f.text_field :name
+  %br
+  %br
+  = f.submit
+  %br
+  %br
+  %br

@@ -1,0 +1,13 @@
+%h1 Medication Info
+%strong Medication Name:
+= @medication.name
+%br
+%strong Side Effects:
+= @medication.side_effects
+%br
+%br
+= link_to "Edit Medication", edit_medication_path(@medication)
+|
+= link_to "Delete Medication", medication_path(@medication), method: :delete
+|
+= link_to "Return to Main", root_path

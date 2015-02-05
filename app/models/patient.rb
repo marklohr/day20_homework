@@ -30,6 +30,7 @@ include Workflow
       event :checkup, transitions_to: :checkup_room
       event :xray, transitions_to: :xray_room
       event :operate, transitions_to: :surgery_room
+      event :pay, transitions_to: :paybill_room
       event :leave, transitions_to: :left
     end
 

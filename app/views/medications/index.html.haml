@@ -1,0 +1,26 @@
+%h1{:colspan => "2", :style => "text-align:center;"}
+  %u Available Medications
+/ = link_to "Add a New Medication", new_medication_path
+%br
+  %ul
+    %a.btn.btn-primary{:href => new_medication_path, :role => "button"} Add a New Medication »
+    %br
+    %br
+
+    - @medications.each do |medication|
+      %li
+        %strong Medication Name:
+        = link_to medication.name, medication_path(medication)
+        %br
+          %strong Side Effects:
+          = medication.side_effects
+          %br
+            / = link_to "Edit Medication", edit_medication_path(medication)
+            %a.btn.btn-sm.btn-success{:href => edit_medication_path(medication), :role => "button"} Edit Medication »
+            / = link_to "Delete Medication", medication_path(medication), method: :delete
+            %a.btn.btn-sm.btn-danger{:href => medication_path(medication), method: :delete, :role => "button"} Delete Medication »
+            %br
+    %a.btn.btn-warning{:href => root_path, :role => "button"} Return to Main »
+
+  %br
+  %br

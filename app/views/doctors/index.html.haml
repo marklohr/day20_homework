@@ -1,0 +1,28 @@
+%h1{:colspan => "2", :style => "text-align:center;"}
+  %u Our Physicians
+%p#notice= notice
+/ = link_to 'Home Page', root_path
+%a.btn.btn-primary.btn-lg{:href => root_path, :role => "button"} Home Page »
+%br
+%br
+/ = link_to 'Enter New Physician', new_doctor_path
+%a.btn.btn-primary.btn-lg{:href => new_doctor_path, :role => "button"} Enter New Physician »
+
+%br
+%br
+%ul
+- @doctors.each do |doctor|
+  %li
+    %strong Name:
+    = doctor.first_name
+    = doctor.last_name
+    %br
+      %strong Gender:
+      = doctor.gender_name
+      %br
+        %strong Specialty:
+        = doctor.specialty
+      = link_to 'More Information', doctor_path(doctor)
+      |
+      = link_to 'Edit', edit_doctor_path(doctor)
+      %br

@@ -1,0 +1,82 @@
+%h1 
+  %u Information for:
+  %h2= @patient.last_name + ", " + @patient.first_name
+  %strong DOB:
+  = @patient.date_of_birth
+  %br
+  %strong Description:
+  = @patient.description
+  %br
+  %strong Gender:
+  = @patient.gender
+  %br
+  %strong Blood Type:
+  = @patient.blood_type
+  %br
+  %br
+  %strong Patient Location:
+  = @patient.workflow_state
+  - if @patient.waiting_room?
+    = link_to "Checkup", checkup_patient_doctor_patient_path(@doctor, @patient), method: :patch
+    = link_to "Recieve X-Ray", xray_patient_doctor_patient_path(@doctor, @patient), method: :patch
+    = link_to "Start Surgery", operate_patient_doctor_patient_path(@doctor, @patient), method: :patch
+    = link_to "Bill Patient", pay_patient_doctor_patient_path(@doctor, @patient), method: :patch
+    = link_to "Discharge Patient", leave_patient_doctor_patient_path(@doctor, @patient), method: :patch
+  - if @patient.checkup_room?
+    = link_to "Recieve X-Ray", xray_patient_doctor_patient_path(@doctor, @patient), method: :patch
+    = link_to "Start Surgery", operate_patient_doctor_patient_path(@doctor, @patient), method: :patch
+    = link_to "Bill Patient", pay_patient_doctor_patient_path(@doctor, @patient), method: :patch
+  - if @patient.xray_room?
+    = link_to "Start Surgery", operate_patient_doctor_patient_path(@doctor, @patient), method: :patch
+    = link_to "Bill Patient", pay_patient_doctor_patient_path(@doctor, @patient), method: :patch
+  - if @patient.surgery_room?
+    = link_to "Bill Patient", pay_patient_doctor_patient_path(@doctor, @patient), method: :patch
+  - if @patient.paybill_room?
+    = link_to "Discharge Patient", leave_patient_doctor_patient_path(@doctor, @patient), method: :patch
+  - if @patient.left?
+    = link_to "Begin Intake", wait_patient_doctor_patient_path(@doctor, @patient), method: :patch
+%br
+%br
+= link_to "Edit Patient", edit_doctor_patient_path(@doctor, @patient)
+|
+= link_to "Delete Patient", doctor_patient_path(@doctor, @patient), method: :delete
+%br
+= link_to "Return to Doctor", doctor_path(@doctor)
+|
+= link_to "Return to Main", root_path
+%br
+%h3
+  %u Patient's Medications:
+= link_to "Add Medication", new_medication_path
+%br
+%br
+  %ul
+    - @patient.medications.each do |medication|
+      %li
+        %strong Medication Name:
+        = medication.name
+        %br
+        %strong Side Effects:
+        = medication.side_effects
+        %br
+        = link_to "Edit Medication", edit_medication_path(medication)
+        |
+        = link_to "Delete Medication", medication_path(medication), method: :delete
+%br
+%h3
+  %u Patient's Preferred Nurses:
+%ul
+  - @nurses.each do |nurse|
+    %li
+      = nurse.name
+      |
+      = link_to "Delete", destroy_nurse_doctor_patient_path(@doctor, @patient, nurse_id: nurse.id), method: :delete
+%br
+= form_for @nurse, url: create_nurse_doctor_patient_path(@doctor, @patient) do |f|
+  %strong= f.label :name
+  = f.text_field :name
+  %br
+  %br
+  = f.submit
+  %br
+  %br

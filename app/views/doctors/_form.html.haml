@@ -1,0 +1,23 @@
+= form_for @doctor do |f|
+  %br
+    = f.label :first_name    
+    = f.text_field :first_name
+    = f.label :last_name
+    = f.text_field :last_name
+    = f.label :biography
+    = f.text_area :biography, size: "30x4"
+    = f.radio_button :gender_name, "male"
+    = f.label(:gender_name, "male")
+    = f.radio_button(:gender_name, "female")
+    = f.label(:gender_name, "female")
+    %br
+    %br
+    = f.label :specialty
+    = f.text_field :specialty
+    %br
+    %br
+    = f.submit
+    %br
+    %a.btn.btn-primary.btn-lg.btn-block{:href => doctors_path, :role => "button"} Return To Physicians Page »
+    %br
+    

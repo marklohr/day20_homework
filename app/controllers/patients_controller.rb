@@ -44,6 +44,7 @@ class PatientsController < ApplicationController
   def update
     @doctor = Doctor.find params[:doctor_id]
     @patient = @doctor.patients.find params[:id]
+    @patient.update patient_params
     redirect_to doctor_path(@doctor)
   end
 
