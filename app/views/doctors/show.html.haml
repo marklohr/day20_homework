@@ -1,4 +1,4 @@
-%h1
+%h1{:colspan => "2", :style => "text-align:center;"}
   %u Physician Information
 %br
 %strong Name:
@@ -16,18 +16,21 @@
 = @doctor.biography
 %br
 %br
-= link_to "Edit This Doctor", edit_doctor_path(@doctor)
-|
-=link_to "Remove This Doctor", doctor_path(@doctor), method: :delete, data: { confirm: 'Are you sure you want to delete?'}
+/ %a.btn.btn-sm.btn-warning{:href => edit_doctor_path(@doctor), :role => "button"} Edit This Doctor
+= link_to "Edit This Doctor", edit_doctor_path(@doctor), class: "btn btn-warning"
+/ =link_to "Remove This Doctor", doctor_path(@doctor), method: :delete, data: { confirm: 'Are you sure you want to delete?'}
+/ %a.btn.btn-sm.btn-danger{:href => doctor_path(@doctor), method: :delete, :role => "button"} Delete This Doctor
+= link_to "Remove This Doctor", doctor_path(@doctor), method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' }
+/ %a.btn.btn-sm.btn-primary{:href => doctors_path, :role => "button"} List of Doctors »
+= link_to "List of Doctors »", doctors_path, class: "btn btn-primary"
+/ %a.btn.btn-sm.btn-primary{:href => root_path, :role => "button"} Return to Home »
+= link_to "Return to Home »", root_path, class: "btn btn-primary"
+
 %br
-= link_to "Return to List of Doctors", doctors_path
-%br
-= link_to "Return to Home", root_path
 %br
 %h3
   %u Physician's Current Patients:
-= link_to "Add Patient", new_doctor_patient_path(@doctor)
-%br
+
 %br
 - @patients.each do |patient|
   %li
@@ -46,26 +49,29 @@
     %strong Blood Type:
     = patient.blood_type
     %br
-    = link_to "Edit Patient Information", edit_doctor_patient_path(@doctor, patient)
-    |
-    = link_to "Delete Patient Information", doctor_patient_path(@doctor, patient), method: :delete
+    / = link_to "Edit Patient Information", edit_doctor_patient_path(@doctor, patient)
+    / %a.btn.btn-sm.btn-warning{:href => edit_doctor_patient_path(@doctor, patient), :role => "button"} Edit Patient Information
+    = link_to "Edit Patient Information", edit_doctor_patient_path(@doctor, patient), class: "btn-sm btn-warning"
+    / %a.btn.btn-sm.btn-danger{:href => doctor_patient_path(@doctor, patient), method: :delete, :role => "button"} Delete Patient Information
+    = link_to "Remove Patient Information", doctor_patient_path(@doctor, patient), method: :delete, class: "btn-sm btn-danger", data: { confirm: 'Are you sure?' }
     %br
     %br
+    %br
+/ %a.btn.btn-sm.btn-success{:href => new_doctor_patient_path(@doctor), :role => "button"} Add New Patient
+= link_to "Add New Patient »", new_doctor_patient_path(@doctor), class: "btn-sm btn-success"
+
+%br
+%br
 %h3
   %u Physicians's List of Nurses:
+%br
 - @nurses.each do |nurse|
   %li
     = nurse.name
-    |
-    = link_to "Delete", destroy_nurse_doctor_path(nurse), method: :delete
+    = link_to "Remove", destroy_nurse_doctor_path(nurse), method: :delete, class: "btn-sm btn-danger", data: { confirm: 'Are you sure?' }
     %br
     %br
 = form_for @nurse, url: create_nurse_doctor_path(@doctor) do |f|
   %strong= f.label :Add_Nurse
   = f.text_field :name
-  %br
-  %br
   = f.submit
-  %br
-  %br
-  %br

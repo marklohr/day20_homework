@@ -1,15 +1,29 @@
 .container
-  .col-md-12
-    %h1{:colspan => "2", :style => "text-align:center;"}
-      P3
-    %h3{:colspan => "2", :style => "text-align:center;"}
-      %u Physicians/Patients/Prescriptions Data System
-      %br
   .col-md-8
     %a.btn.btn-primary.btn-lg.btn-block{:href => doctors_path, :role => "button"} View Physicians »
   .col-md-4
-    %img{:alt => "Icon", :src => "/assets/images/docs_banner"}/
+    / %img{:alt => "Icon", :src => "/assets/docs_banner.jpg"}/
+    =image_tag asset_path('docs_banner.jpg'), :size => '252x48'
     %br
     %br
   .col-md-8
     %a.btn.btn-primary.btn-lg.btn-block{:href => medications_path, :role => "button"} View Medications »
+  .col-md-4
+    / %img{:alt => "Icon", :src => "/assets/meds_banner.jpg"}/
+    =image_tag asset_path('meds_banner.jpg'), :size => '252x48'    
+%br
+%br
+%h6
+  .col-md-4
+    Feel free to donate to the developer of this site...
+    %form.form-inline-block
+    .form-group
+    %label.sr-only{:for => "exampleInputAmount"} Amount (in dollars)
+    .input-group
+      .input-group-addon $
+      %input#exampleInputAmount.form-control{:placeholder => "Amount", :type => "text"}
+        .input-group-addon .00
+        %br
+    %button.sm.btn-primary{:type => "submit"} Transfer cash
+
+    

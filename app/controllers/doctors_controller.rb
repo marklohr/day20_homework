@@ -2,6 +2,11 @@ class DoctorsController < ApplicationController
 
   def index
     @doctors = Doctor.all
+      # if !params[:search].blank?
+      #      @posts = Post.where("name LIKE ?", "%#{params[:search]}%")
+      #    else
+      #      @posts = @user.posts
+      #    end
   end
 
   def show

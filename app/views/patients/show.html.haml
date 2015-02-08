@@ -14,27 +14,41 @@
   = @patient.blood_type
   %br
   %br
-  %strong Patient Location:
-  = @patient.workflow_state
-  - if @patient.waiting_room?
-    = link_to "Checkup", checkup_patient_doctor_patient_path(@doctor, @patient), method: :patch
-    = link_to "Recieve X-Ray", xray_patient_doctor_patient_path(@doctor, @patient), method: :patch
-    = link_to "Start Surgery", operate_patient_doctor_patient_path(@doctor, @patient), method: :patch
-    = link_to "Bill Patient", pay_patient_doctor_patient_path(@doctor, @patient), method: :patch
-    = link_to "Discharge Patient", leave_patient_doctor_patient_path(@doctor, @patient), method: :patch
-  - if @patient.checkup_room?
-    = link_to "Recieve X-Ray", xray_patient_doctor_patient_path(@doctor, @patient), method: :patch
-    = link_to "Start Surgery", operate_patient_doctor_patient_path(@doctor, @patient), method: :patch
-    = link_to "Bill Patient", pay_patient_doctor_patient_path(@doctor, @patient), method: :patch
-  - if @patient.xray_room?
-    = link_to "Start Surgery", operate_patient_doctor_patient_path(@doctor, @patient), method: :patch
-    = link_to "Bill Patient", pay_patient_doctor_patient_path(@doctor, @patient), method: :patch
-  - if @patient.surgery_room?
-    = link_to "Bill Patient", pay_patient_doctor_patient_path(@doctor, @patient), method: :patch
-  - if @patient.paybill_room?
-    = link_to "Discharge Patient", leave_patient_doctor_patient_path(@doctor, @patient), method: :patch
-  - if @patient.left?
-    = link_to "Begin Intake", wait_patient_doctor_patient_path(@doctor, @patient), method: :patch
+  %h5
+    %strong Patient Location:
+    = @patient.workflow_state
+    - if @patient.waiting_room?
+      %i.fa.fa-user-md.fa-lg
+      =link_to "Checkup", checkup_patient_doctor_patient_path(@doctor, @patient), method: :patch
+      %i.fa.fa-times.fa-lg
+      = link_to "Recieve X-Ray", xray_patient_doctor_patient_path(@doctor, @patient), method: :patch
+      %i.fa.fa-bed.fa-lg
+      = link_to "Start Surgery", operate_patient_doctor_patient_path(@doctor, @patient), method: :patch
+      %i.fa.fa-usd.fa-lg
+      = link_to "Bill Patient", pay_patient_doctor_patient_path(@doctor, @patient), method: :patch
+      %i.fa.fa-sign-out.fa-lg
+      = link_to "Discharge Patient", leave_patient_doctor_patient_path(@doctor, @patient), method: :patch
+    - if @patient.checkup_room?
+      %i.fa.fa-times.fa-lg
+      = link_to "Recieve X-Ray", xray_patient_doctor_patient_path(@doctor, @patient), method: :patch
+      %i.fa.fa-bed.fa-lg
+      = link_to "Start Surgery", operate_patient_doctor_patient_path(@doctor, @patient), method: :patch
+      %i.fa.fa-usd.fa-lg
+      = link_to "Bill Patient", pay_patient_doctor_patient_path(@doctor, @patient), method: :patch
+    - if @patient.xray_room?
+      %i.fa.fa-bed.fa-lg
+      = link_to "Start Surgery", operate_patient_doctor_patient_path(@doctor, @patient), method: :patch
+      %i.fa.fa-usd.fa-lg
+      = link_to "Bill Patient", pay_patient_doctor_patient_path(@doctor, @patient), method: :patch
+    - if @patient.surgery_room?
+      %i.fa.fa-usd.fa-lg
+      = link_to "Bill Patient", pay_patient_doctor_patient_path(@doctor, @patient), method: :patch
+    - if @patient.paybill_room?
+      %i.fa.fa-sign-out.fa-lg
+      = link_to "Discharge Patient", leave_patient_doctor_patient_path(@doctor, @patient), method: :patch
+    - if @patient.left?
+      %i.fa.fa-refresh.fa-spin
+      = link_to "Begin Intake", wait_patient_doctor_patient_path(@doctor, @patient), method: :patch
 %br
 %br
 = link_to "Edit Patient", edit_doctor_patient_path(@doctor, @patient)
@@ -75,7 +89,6 @@
 = form_for @nurse, url: create_nurse_doctor_patient_path(@doctor, @patient) do |f|
   %strong= f.label :name
   = f.text_field :name
-  %br
   %br
   = f.submit
   %br

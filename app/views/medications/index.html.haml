@@ -16,9 +16,11 @@
           = medication.side_effects
           %br
             / = link_to "Edit Medication", edit_medication_path(medication)
-            %a.btn.btn-sm.btn-success{:href => edit_medication_path(medication), :role => "button"} Edit Medication »
+            = link_to "Edit Medication", edit_medication_path(medication), class: "btn-sm btn-success"
+            / %a.btn.btn-success{:href => edit_medication_path(medication), :role => "button"} Edit Medication
             / = link_to "Delete Medication", medication_path(medication), method: :delete
-            %a.btn.btn-sm.btn-danger{:href => medication_path(medication), method: :delete, :role => "button"} Delete Medication »
+            / %a.btn.btn-sm.btn-danger{:href => medication_path(medication), method: :delete, :role => "button"} Delete Medication
+            = link_to "Delete Medication", medication_path(medication), method: :delete, class: "btn-sm btn-danger", data: { confirm: 'Are you sure?' }
             %br
     %a.btn.btn-warning{:href => root_path, :role => "button"} Return to Main »
 

@@ -1,9 +1,17 @@
 !!!
 %html
   %head
+    %link{:href => "/assets/fonts/font-awesome-4.3.0/css/font-awesome.min.css", :rel => "stylesheet"}/
     %title P3 Systems
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body.container
-    = yield
+    %center
+      =image_tag asset_path('p3logo.png'), :size => '600x125' 
+      %br
+      %br
+    = render 'layouts/header'
+    .row.well.well-lg
+      = yield
+    = render 'layouts/footer'

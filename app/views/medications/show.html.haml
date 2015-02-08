@@ -6,8 +6,9 @@
 = @medication.side_effects
 %br
 %br
-= link_to "Edit Medication", edit_medication_path(@medication)
-|
-= link_to "Delete Medication", medication_path(@medication), method: :delete
-|
-= link_to "Return to Main", root_path
+/ = link_to "Edit Medication", edit_medication_path(@medication)
+%a.btn.btn-warning{:href => edit_medication_path(@medication), :role => "button"} Edit Medication
+/ = link_to "Delete Medication", medication_path(@medication), method: :delete
+= link_to "Delete Medication", medication_path(@medication), method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' }
+
+%a.btn.btn-primary{:href => root_path, :role => "button"} Return to Home »

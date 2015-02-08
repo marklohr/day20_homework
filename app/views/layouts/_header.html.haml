@@ -1,0 +1,29 @@
+/ %form.navbar-form.navbar-right{:role => "search"}
+/   .form-group
+/     %input.form-control{:placeholder => "Search", :type => "text"}
+/   %button.btn.btn-default{:type => "submit"} Submit
+.navbar.navbar-inverse.navbar-fixed-top{:role => "navigation"}
+  .navbar-header
+    %button.navbar-toggle{"data-target" => ".navbar-ex1-collapse", "data-toggle" => "collapse", :type => "button"}
+      %span.sr-only Toggle navigation
+      %span.icon-bar
+      %span.icon-bar
+      %span.icon-bar
+    %a.navbar-brand{:href => "/", :rel => "home", :title => "P3 Systems - Homepage"} P3 Data Systems
+  .collapse.navbar-collapse.navbar-ex1-collapse
+    %ul.nav.navbar-nav
+      %li
+        %a{:href => "/"} • link1
+      %li
+        %a{:href => "/"} • link2
+      %li
+        %a{:href => "/"} • link3
+      %li
+        %a{:href => "/"} • link4
+    .col-sm-3.col-md-3.pull-right
+      %form.navbar-form{:role => "search"}
+        .input-group
+          %input#srch-term.form-control{:name => "srch-term", :placeholder => "Search", :type => "text"}
+            .input-group-btn
+              %button.btn.btn-default{:type => "submit"}
+                %i.fa.fa-search 
