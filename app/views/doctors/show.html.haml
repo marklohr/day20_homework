@@ -72,6 +72,5 @@
     %br
     %br
 = form_for @nurse, url: create_nurse_doctor_path(@doctor) do |f|
-  %strong= f.label :Add_Nurse
-  = f.text_field :name
+  = f.text_field :name, placeholder: "Add Nurse"
   = f.submit

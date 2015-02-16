@@ -73,23 +73,20 @@
         %strong Side Effects:
         = medication.side_effects
         %br
-        = link_to "Edit Medication", edit_medication_path(medication)
+        = link_to "Edit Medication", edit_medication_path(medication), class: "btn-sm btn-success"
         |
-        = link_to "Delete Medication", medication_path(medication), method: :delete
+        = link_to "Delete Medication", medication_path(medication), method: :delete, class: "btn-sm btn-danger", data: { confirm: 'Are you sure?' }
 %br
 %h3
   %u Patient's Preferred Nurses:
-%ul
-  - @nurses.each do |nurse|
-    %li
-      = nurse.name
-      |
-      = link_to "Delete", destroy_nurse_doctor_patient_path(@doctor, @patient, nurse_id: nurse.id), method: :delete
 %br
+- @nurses.each do |nurse|
+  %li
+    = nurse.name
+    = link_to "Remove", destroy_nurse_doctor_patient_path(@doctor, @patient, nurse_id: nurse.id), method: :delete, class: "btn-sm btn-danger", data: { confirm: 'Are you sure?' }
+    %br
+    %br
 = form_for @nurse, url: create_nurse_doctor_patient_path(@doctor, @patient) do |f|
-  %strong= f.label :name
-  = f.text_field :name
-  %br
+  = f.text_field :name, placeholder: "Add Nurse"
   = f.submit
-  %br
   %br
